@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SS Stark ToolHub – Free Online Tools</title>
+  <meta name="description" content="SS Stark ToolHub – a collection of free online tools: calculators, QR generator, fun text tools and more." />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --accent: #ff9f43;
+      --accent-soft: rgba(255, 159, 67, 0.12);
+      --card: #111827;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2933;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      max-width: 1100px;
+      width: 100%;
+      padding: 16px;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 8px;
+      z-index: 5;
+      backdrop-filter: blur(20px);
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fde68a, #f97316, #7c2d12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #0b1120;
+      border: 2px solid rgba(248, 250, 252, 0.8);
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .tagline {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.75);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .nav-btn {
+      flex: 1 1 120px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-muted);
+      font-size: 12px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .nav-btn span.icon {
+      font-size: 14px;
+    }
+
+    .nav-btn.active {
+      border-color: var(--accent);
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), rgba(15, 23, 42, 0.9));
+      color: #fefce8;
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.08), 0 0 20px rgba(251, 146, 60, 0.5);
+    }
+
+    main {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        position: static;
+      }
+    }
+
+    .tools-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tool-card {
+      border-radius: var(--radius-xl);
+      padding: 14px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.95));
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.04), transparent 55%);
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .tool-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .tool-badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-muted);
+    }
+
+    .tool-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-body {
+      position: relative;
+      z-index: 1;
+    }
+
+    label {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(251, 146, 60, 0.6);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.12);
+      background: radial-gradient(circle at top, #f97316, #ea580c);
+      color: #0b1120;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(249, 115, 22, 0.45);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 14px 35px rgba(249, 115, 22, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 24px rgba(249, 115, 22, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.6);
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.9);
+    }
+
+    .result-box {
+      margin-top: 9px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), #020617);
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: pre-line;
+    }
+
+    .result-highlight {
+      color: #fef3c7;
+      font-weight: 600;
+    }
+
+    .bmi-tag {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      margin-left: 4px;
+    }
+
+    .bmi-good {
+      background: rgba(34, 197, 94, 0.18);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.5);
+    }
+
+    .bmi-warn {
+      background: rgba(234, 179, 8, 0.18);
+      color: #fef3c7;
+      border: 1px solid rgba(234, 179, 8, 0.5);
+    }
+
+    .bmi-bad {
+      background: rgba(239, 68, 68, 0.18);
+      color: #fecaca;
+      border: 1px solid rgba(239, 68, 68, 0.5);
+    }
+
+    .qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    #qrcode {
+      padding: 8px;
+      border-radius: 16px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 1));
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .emoji-output {
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .sidebar {
+      border-radius: var(--radius-xl);
+      padding: 12px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.96));
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-text {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+    }
+
+    .coming-pill {
+      border-color: rgba(251, 146, 60, 0.7);
+      color: #fed7aa;
+      background: rgba(30, 64, 175, 0.5);
+    }
+
+    footer {
+      margin-top: 14px;
+      padding: 10px 6px 18px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .accent-text {
+      color: #fed7aa;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-logo">SS</div>
+          <div>
+            <div class="brand-text-main">SS Stark ToolHub</div>
+            <div class="brand-text-sub">Free multi-tool hub • Calculators • QR • Fun tools</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div class="brand-text-sub">Powered by <span class="accent-text">Lohit Stark</span></div>
+          <div class="brand-text-sub" style="font-size: 10px;">Money works 24/7. So you don’t have to.</div>
+        </div>
+      </div>
+      <div class="tagline">Pick a tool below and start using it instantly — no login, no payment, no install.</div>
+      <div class="chip-row">
+        <div class="chip"><span class="chip-dot"></span> Live Tools Online</div>
+        <div class="chip">Zero Cost • Ad Supported</div>
+        <div class="chip">Phase 1 • UTILITIES</div>
+      </div>
+      <div class="nav-row">
+        <button class="nav-btn active" data-section="core">
+          <span class="icon">🧮</span> Core Tools
+        </button>
+        <button class="nav-btn" data-section="pdf">
+          <span class="icon">📄</span> PDF & Files (Soon)
+        </button>
+        <button class="nav-btn" data-section="ai">
+          <span class="icon">🤖</span> AI Helpers (Soon)
+        </button>
+        <button class="nav-btn" data-section="social">
+          <span class="icon">📲</span> Social Tools (Soon)
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="tools-panel">
+        <!-- CORE TOOLS SECTION -->
+        <section id="section-core">
+          <!-- Age Calculator -->
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">Age Calculator</div>
+              <div class="tool-badge">Utility • Instant</div>
+            </div>
+            <div class="tool-desc">
+              Enter your date of birth to calculate your age in years, months and days.
+            </div>
+            <div class="tool-body">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" />
+              <button class="btn" onclick="calculateAge()">
+                <span>Calculate Age</span> <span>⚡</span>
+              </button>
+              <div id="ageResult" class="result-box" style="display:none;"></div>
+            </div>
+          </div>
+
+          <!-- BMI Calculator -->
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">BMI Calculator</div>
+              <div class="tool-badge">Health • Quick Check</div>
+            </div>
+            <div class="tool-desc">
+              Calculate your Body Mass Index using your height (cm) and weight (kg).
+            </div>
+            <div class="tool-body">
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <div style="flex:1 1 120px;">
+                  <label for="height">Height (cm)</label>
+                  <input type="number" id="height" placeholder="e.g. 170" />
+                </div>
+                <div style="flex:1 1 120px;">
+                  <label for="weight">Weight (kg)</label>
+                  <input type="number" id="weight" placeholder="e.g. 65" />
+                </div>
+              </div>
+              <button class="btn" onclick="calculateBMI()">
+                <span>Calculate BMI</span> <span>📊</span>
+              </button>
+              <div id="bmiResult" class="result-box" style="display:none;"></div>
+            </div>
+          </div>
+
+          <!-- QR Code Generator -->
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">QR Code Generator</div>
+              <div class="tool-badge">Share • Links • Text</div>
+            </div>
+            <div class="tool-desc">
+              Turn any text, link or contact info into a scannable QR code instantly.
+            </div>
+            <div class="tool-body">
+              <label for="qrText">Text or URL</label>
+              <textarea id="qrText" placeholder="Paste any link or text here..."></textarea>
+              <button class="btn" onclick="generateQR()">
+                <span>Generate QR</span> <span>📱</span>
+              </button>
+              <div class="qr-box">
+                <div id="qrcode"></div>
+                <div class="sidebar-text" style="text-align:center;">
+                  Tip: Long press / right-click the QR → Save image.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text to Emoji Fun Converter -->
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">Text ➜ Emoji Fun Converter</div>
+              <div class="tool-badge">Fun • Social</div>
+            </div>
+            <div class="tool-desc">
+              Make your messages more fun. We’ll spice up your text with smart emojis.
+            </div>
+            <div class="tool-body">
+              <label for="emojiInput">Your Text</label>
+              <textarea id="emojiInput" placeholder="Type something like: I'm happy and hungry today!"></textarea>
+              <button class="btn" onclick="convertToEmoji()">
+                <span>Emoji-fy Text</span> <span>✨</span>
+              </button>
+              <div id="emojiOutput" class="result-box emoji-output" style="display:none;"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PLACEHOLDER SECTIONS (for future tools) -->
+        <section id="section-pdf" style="display:none;">
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">PDF & File Tools</div>
+              <div class="tool-badge">Coming Soon</div>
+            </div>
+            <div class="tool-desc">
+              This area will host converters like PDF ⇄ Word, PDF merge, image to PDF and more — all free, all online.
+            </div>
+            <div class="tool-body">
+              <div class="result-box">
+                Planned tools:
+                <ul style="margin:6px 0 0 16px; padding:0; font-size:12px;">
+                  <li>PDF ➜ JPG Converter</li>
+                  <li>JPG ➜ PNG Converter</li>
+                  <li>Merge PDFs</li>
+                  <li>Compress PDF</li>
+                </ul>
+                <br />
+                As SS Stark ToolHub grows, these tools will be added here with zero-cost hosting.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-ai" style="display:none;">
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">AI Helper Tools</div>
+              <div class="tool-badge">Phase 2</div>
+            </div>
+            <div class="tool-desc">
+              This section will contain AI-based helpers like resume builder, email writer and caption generator.
+            </div>
+            <div class="tool-body">
+              <div class="result-box">
+                Future ideas:
+                <ul style="margin:6px 0 0 16px; padding:0; font-size:12px;">
+                  <li>Resume / CV Generator</li>
+                  <li>Instagram Caption Generator</li>
+                  <li>Email & Message Writer</li>
+                  <li>Title & Keyword Generator for YouTube</li>
+                </ul>
+                <br />
+                All designed to be simple, mobile-first and monetized via ads.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-social" style="display:none;">
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">Social & Media Tools</div>
+              <div class="tool-badge">Planned</div>
+            </div>
+            <div class="tool-desc">
+              Here we’ll add safe, policy-respecting helpers related to social content — previews, caption helpers, link tools and more.
+            </div>
+            <div class="tool-body">
+              <div class="result-box">
+                Notes:
+                <ul style="margin:6px 0 0 16px; padding:0; font-size:12px;">
+                  <li>We will avoid any tools that break platform rules or DRM.</li>
+                  <li>Focus will be legal helpers like caption formatting, hashtags suggestion, URL tools etc.</li>
+                </ul>
+                <br />
+                This design keeps SS Stark ToolHub safe, long-term and ad-friendly.
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <div>
+          <div class="sidebar-section-title">SS Stark ToolHub – Phase 1</div>
+          <div class="sidebar-text">
+            You’re looking at the first live version: focused on simple tools that work completely in-browser with zero hosting cost.
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Current Live Tools</div>
+          <div class="pill-list">
+            <div class="pill">Age Calculator</div>
+            <div class="pill">BMI Calculator</div>
+            <div class="pill">QR Code Generator</div>
+            <div class="pill">Text ➜ Emoji Converter</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Coming Soon</div>
+          <div class="pill-list">
+            <div class="pill coming-pill">PDF ⇄ Image</div>
+            <div class="pill coming-pill">Resume Builder</div>
+            <div class="pill coming-pill">YouTube Title Ideas</div>
+            <div class="pill coming-pill">Loan EMI Calc</div>
+            <div class="pill coming-pill">More Stark Utilities</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Monetization Plan</div>
+          <div class="sidebar-text">
+            • Add Google AdSense once traffic grows.<br />
+            • Later: affiliate links and sponsorship spots on sidebars.<br />
+            • Keep everything free to use for maximum traffic.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> <span class="accent-text">SS Stark ToolHub</span> • Built for zero-cost income by Lohit Stark.
+    </footer>
+  </div>
+
+  <!-- QR Code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-MnIXvGjvE6BbZiI7IuP89xDSHLVbkP4Jrped1IovnHgwlHGawEq+y3OCAXoTr4a9L5xRcmRl6VwBxi0P5ltx0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Section navigation
+    const navButtons = document.querySelectorAll(".nav-btn");
+    const sections = {
+      core: document.getElementById("section-core"),
+      pdf: document.getElementById("section-pdf"),
+      ai: document.getElementById("section-ai"),
+      social: document.getElementById("section-social")
+    };
+
+    navButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-section");
+
+        navButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        Object.keys(sections).forEach(key => {
+          sections[key].style.display = key === target ? "block" : "none";
+        });
+      });
+    });
+
+    // Age Calculator
+    function calculateAge() {
+      const dobInput = document.getElementById("dob").value;
+      const resultBox = document.getElementById("ageResult");
+
+      if (!dobInput) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML = "⚠️ Please select your date of birth.";
+        return;
+      }
+
+      const dob = new Date(dobInput);
+      const now = new Date();
+
+      if (dob > now) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML = "⚠️ Date of birth cannot be in the future.";
+        return;
+      }
+
+      let years = now.getFullYear() - dob.getFullYear();
+      let months = now.getMonth() - dob.getMonth();
+      let days = now.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months -= 1;
+        const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += previousMonth.getDate();
+      }
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML =
+        "You are <span class='result-highlight'>" +
+        years +
+        " year(s), " +
+        months +
+        " month(s) and " +
+        days +
+        " day(s)</span> old.\n\n" +
+        "DOB: " +
+        dob.toDateString() +
+        "\nToday: " +
+        now.toDateString();
+    }
+
+    // BMI Calculator
+    function calculateBMI() {
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
+      const resultBox = document.getElementById("bmiResult");
+
+      if (!height || !weight || height <= 0 || weight <= 0) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML = "⚠️ Please enter valid height and weight.";
+        return;
+      }
+
+      const heightM = height / 100;
+      const bmi = weight / (heightM * heightM);
+      const bmiRounded = bmi.toFixed(1);
+      let category = "";
+      let tagClass = "";
+
+      if (bmi < 18.5) {
+        category = "Underweight";
+        tagClass = "bmi-warn";
+      } else if (bmi < 25) {
+        category = "Normal";
+        tagClass = "bmi-good";
+      } else if (bmi < 30) {
+        category = "Overweight";
+        tagClass = "bmi-warn";
+      } else {
+        category = "Obese";
+        tagClass = "bmi-bad";
+      }
+
+      resultBox.style.display = "block";
+      resultBox.innerHTML =
+        "Your BMI is <span class='result-highlight'>" + bmiRounded + "</span>" +
+        " <span class='bmi-tag " + tagClass + "'>" + category + "</span>" +
+        "\n\n" +
+        "Categories (WHO):\n" +
+        "• Underweight: < 18.5\n" +
+        "• Normal: 18.5 – 24.9\n" +
+        "• Overweight: 25 – 29.9\n" +
+        "• Obese: ≥ 30";
+    }
+
+    // QR Code Generator
+    let qrInstance = null;
+
+    function generateQR() {
+      const text = document.getElementById("qrText").value.trim();
+      const qrContainer = document.getElementById("qrcode");
+
+      if (!text) {
+        qrContainer.innerHTML = "<span style='font-size:12px; color:#9ca3af;'>⚠️ Enter some text or a link above.</span>";
+        return;
+      }
+
+      qrContainer.innerHTML = "";
+
+      qrInstance = new QRCode(qrContainer, {
+        text: text,
+        width: 140,
+        height: 140,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    // Text to Emoji Fun Converter
+    function convertToEmoji() {
+      const input = document.getElementById("emojiInput").value.trim();
+      const outputBox = document.getElementById("emojiOutput");
+
+      if (!input) {
+        outputBox.style.display = "block";
+        outputBox.innerHTML = "⚠️ Type some text above to convert.";
+        return;
+      }
+
+      const replacements = [
+        { key: /happy|glad|joy|smile/gi, emoji: "😊" },
+        { key: /sad|upset|down/gi, emoji: "😔" },
+        { key: /angry|mad|rage/gi, emoji: "😠" },
+        { key: /love|heart|dear/gi, emoji: "❤️" },
+        { key: /money|cash|profit|salary/gi, emoji: "💰" },
+        { key: /food|hungry|lunch|dinner/gi, emoji: "🍽️" },
+        { key: /coffee|chai|tea/gi, emoji: "☕" },
+        { key: /tired|sleepy|sleep/gi, emoji: "😴" },
+        { key: /work|office|study/gi, emoji: "💻" },
+        { key: /party|fun|enjoy/gi, emoji: "🎉" }
+      ];
+
+      let output = input;
+      replacements.forEach(r => {
+        output = output.replace(r.key, match => match + " " + r.emoji);
+      });
+
+      outputBox.style.display = "block";
+      outputBox.innerHTML = "<span class='result-highlight'>Converted Text:</span>\n\n" + output;
+    }
+  </script>
+</body>
+</html>
