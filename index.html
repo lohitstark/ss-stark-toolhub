@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SS Stark ToolHub – Free Online Tools</title>
-  <meta name="description" content="SS Stark ToolHub – a collection of free online tools: calculators, QR generator, fun text tools and more." />
+  <meta name="description" content="SS Stark ToolHub – a collection of free online tools: calculators, QR generator, resume builder and more." />
   <style>
     :root {
       --bg: #050816;
@@ -290,6 +290,7 @@
       cursor: pointer;
       box-shadow: 0 12px 30px rgba(249, 115, 22, 0.45);
       transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+      text-decoration: none;
     }
 
     .btn:hover {
@@ -308,6 +309,7 @@
       color: var(--text-main);
       border-color: rgba(148, 163, 184, 0.6);
       box-shadow: 0 12px 25px rgba(15, 23, 42, 0.9);
+      font-weight: 500;
     }
 
     .result-box {
@@ -450,7 +452,7 @@
       <div class="tagline">Pick a tool below and start using it instantly — no login, no payment, no install.</div>
       <div class="chip-row">
         <div class="chip"><span class="chip-dot"></span> Live Tools Online</div>
-        <div class="chip">Zero Cost • Ad Supported</div>
+        <div class="chip">Always Free to Use</div>
         <div class="chip">Phase 1 • UTILITIES</div>
       </div>
       <div class="nav-row">
@@ -461,7 +463,7 @@
           <span class="icon">📄</span> PDF & Files (Soon)
         </button>
         <button class="nav-btn" data-section="ai">
-          <span class="icon">🤖</span> AI Helpers (Soon)
+          <span class="icon">🤖</span> AI Helpers
         </button>
         <button class="nav-btn" data-section="social">
           <span class="icon">📲</span> Social Tools (Soon)
@@ -477,7 +479,7 @@
           <div class="tool-card">
             <div class="tool-header">
               <div class="tool-title">Age Calculator</div>
-              <div class="tool-badge">Utility • Instant</div>
+              <div class="tool-badge">UTILITY • INSTANT</div>
             </div>
             <div class="tool-desc">
               Enter your date of birth to calculate your age in years, months and days.
@@ -496,7 +498,7 @@
           <div class="tool-card">
             <div class="tool-header">
               <div class="tool-title">BMI Calculator</div>
-              <div class="tool-badge">Health • Quick Check</div>
+              <div class="tool-badge">HEALTH • QUICK CHECK</div>
             </div>
             <div class="tool-desc">
               Calculate your Body Mass Index using your height (cm) and weight (kg).
@@ -523,7 +525,7 @@
           <div class="tool-card">
             <div class="tool-header">
               <div class="tool-title">QR Code Generator</div>
-              <div class="tool-badge">Share • Links • Text</div>
+              <div class="tool-badge">SHARE • LINKS • TEXT</div>
             </div>
             <div class="tool-desc">
               Turn any text, link or contact info into a scannable QR code instantly.
@@ -547,7 +549,7 @@
           <div class="tool-card">
             <div class="tool-header">
               <div class="tool-title">Text ➜ Emoji Fun Converter</div>
-              <div class="tool-badge">Fun • Social</div>
+              <div class="tool-badge">FUN • SOCIAL</div>
             </div>
             <div class="tool-desc">
               Make your messages more fun. We’ll spice up your text with smart emojis.
@@ -563,12 +565,12 @@
           </div>
         </section>
 
-        <!-- PLACEHOLDER SECTIONS (for future tools) -->
+        <!-- PDF TOOLS PLACEHOLDER -->
         <section id="section-pdf" style="display:none;">
           <div class="tool-card">
             <div class="tool-header">
               <div class="tool-title">PDF & File Tools</div>
-              <div class="tool-badge">Coming Soon</div>
+              <div class="tool-badge">COMING SOON</div>
             </div>
             <div class="tool-desc">
               This area will host converters like PDF ⇄ Word, PDF merge, image to PDF and more — all free, all online.
@@ -583,55 +585,105 @@
                   <li>Compress PDF</li>
                 </ul>
                 <br />
-                As SS Stark ToolHub grows, these tools will be added here with zero-cost hosting.
+                As SS Stark ToolHub grows, these tools will be added here with zero extra cost for you.
               </div>
             </div>
           </div>
         </section>
 
+        <!-- AI HELPERS SECTION (RESUME BUILDER LIVE) -->
         <section id="section-ai" style="display:none;">
           <div class="tool-card">
             <div class="tool-header">
-              <div class="tool-title">AI Helper Tools</div>
-              <div class="tool-badge">Phase 2</div>
+              <div class="tool-title">Resume Builder (Simple)</div>
+              <div class="tool-badge">AI HELPER • READY</div>
             </div>
             <div class="tool-desc">
-              This section will contain AI-based helpers like resume builder, email writer and caption generator.
+              Fill in your details, and we’ll generate a clean text resume you can copy into Word/Docs or download as a .txt file.
+            </div>
+            <div class="tool-body">
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <div style="flex:1 1 150px;">
+                  <label for="resName">Full Name</label>
+                  <input id="resName" type="text" placeholder="e.g. Lohit Stark" />
+                </div>
+                <div style="flex:1 1 150px;">
+                  <label for="resRole">Target Role</label>
+                  <input id="resRole" type="text" placeholder="e.g. Data Entry / Typist" />
+                </div>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;">
+                <div style="flex:1 1 150px;">
+                  <label for="resEmail">Email</label>
+                  <input id="resEmail" type="email" placeholder="e.g. you@example.com" />
+                </div>
+                <div style="flex:1 1 150px;">
+                  <label for="resPhone">Phone</label>
+                  <input id="resPhone" type="text" placeholder="e.g. +91 XXXXX XXXXX" />
+                </div>
+              </div>
+
+              <label for="resSummary" style="margin-top:8px;">Short Summary</label>
+              <textarea id="resSummary" placeholder="2–3 lines about you, your strengths and experience."></textarea>
+
+              <label for="resExperience" style="margin-top:8px;">Experience</label>
+              <textarea id="resExperience" placeholder="- Job Title, Company, Dates&#10;- Responsibilities and achievements"></textarea>
+
+              <label for="resEducation" style="margin-top:8px;">Education</label>
+              <textarea id="resEducation" placeholder="- Degree / Course, College, Year&#10;- Any key highlights"></textarea>
+
+              <label for="resSkills" style="margin-top:8px;">Skills</label>
+              <textarea id="resSkills" placeholder="e.g. Typing, MS Excel, Data Entry, Communication, English, Hindi, Kannada"></textarea>
+
+              <button class="btn" onclick="buildResume()">
+                <span>Build Resume</span> <span>📄</span>
+              </button>
+              <a id="resumeDownloadBtn" class="btn btn-secondary" href="#" style="display:none; margin-left:6px;">
+                Download .txt
+              </a>
+
+              <div id="resumeResult" class="result-box" style="display:none; margin-top:10px;"></div>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">More AI Helpers (Soon)</div>
+              <div class="tool-badge">PHASE 2</div>
+            </div>
+            <div class="tool-desc">
+              Extra helpers will be added here to speed up your daily work.
             </div>
             <div class="tool-body">
               <div class="result-box">
-                Future ideas:
+                Planned tools:
                 <ul style="margin:6px 0 0 16px; padding:0; font-size:12px;">
-                  <li>Resume / CV Generator</li>
                   <li>Instagram Caption Generator</li>
                   <li>Email & Message Writer</li>
                   <li>Title & Keyword Generator for YouTube</li>
                 </ul>
-                <br />
-                All designed to be simple, mobile-first and monetized via ads.
               </div>
             </div>
           </div>
         </section>
 
+        <!-- SOCIAL PLACEHOLDER -->
         <section id="section-social" style="display:none;">
           <div class="tool-card">
             <div class="tool-header">
               <div class="tool-title">Social & Media Tools</div>
-              <div class="tool-badge">Planned</div>
+              <div class="tool-badge">PLANNED</div>
             </div>
             <div class="tool-desc">
-              Here we’ll add safe, policy-respecting helpers related to social content — previews, caption helpers, link tools and more.
+              Here we’ll add safe helpers related to social content — caption ideas, link tools and more.
             </div>
             <div class="tool-body">
               <div class="result-box">
                 Notes:
                 <ul style="margin:6px 0 0 16px; padding:0; font-size:12px;">
                   <li>We will avoid any tools that break platform rules or DRM.</li>
-                  <li>Focus will be legal helpers like caption formatting, hashtags suggestion, URL tools etc.</li>
+                  <li>Focus will be helpers like caption formatting, hashtags suggestions, URL tools etc.</li>
                 </ul>
-                <br />
-                This design keeps SS Stark ToolHub safe, long-term and ad-friendly.
               </div>
             </div>
           </div>
@@ -653,6 +705,7 @@
             <div class="pill">BMI Calculator</div>
             <div class="pill">QR Code Generator</div>
             <div class="pill">Text ➜ Emoji Converter</div>
+            <div class="pill">Resume Builder</div>
           </div>
         </div>
 
@@ -660,7 +713,7 @@
           <div class="sidebar-section-title">Coming Soon</div>
           <div class="pill-list">
             <div class="pill coming-pill">PDF ⇄ Image</div>
-            <div class="pill coming-pill">Resume Builder</div>
+            <div class="pill coming-pill">More AI Helpers</div>
             <div class="pill coming-pill">YouTube Title Ideas</div>
             <div class="pill coming-pill">Loan EMI Calc</div>
             <div class="pill coming-pill">More Stark Utilities</div>
@@ -668,18 +721,18 @@
         </div>
 
         <div>
-          <div class="sidebar-section-title">Monetization Plan</div>
+          <div class="sidebar-section-title">Pro tip</div>
           <div class="sidebar-text">
-            • Add Google AdSense once traffic grows.<br />
-            • Later: affiliate links and sponsorship spots on sidebars.<br />
-            • Keep everything free to use for maximum traffic.
+            • Bookmark this page for quick access.<br />
+            • Share SS Stark ToolHub with friends who need instant tools.<br />
+            • Works on mobile and desktop with no sign-up.
           </div>
         </div>
       </aside>
     </main>
 
     <footer>
-      © <span id="year"></span> <span class="accent-text">SS Stark ToolHub</span> • Built for zero-cost income by Lohit Stark.
+      © <span id="year"></span> <span class="accent-text">SS Stark ToolHub</span> • Built for you by Lohit Stark.
     </footer>
   </div>
 
@@ -858,6 +911,75 @@
 
       outputBox.style.display = "block";
       outputBox.innerHTML = "<span class='result-highlight'>Converted Text:</span>\n\n" + output;
+    }
+
+    // Resume Builder
+    function buildResume() {
+      const name = document.getElementById("resName").value.trim();
+      const role = document.getElementById("resRole").value.trim();
+      const email = document.getElementById("resEmail").value.trim();
+      const phone = document.getElementById("resPhone").value.trim();
+      const summary = document.getElementById("resSummary").value.trim();
+      const experience = document.getElementById("resExperience").value.trim();
+      const education = document.getElementById("resEducation").value.trim();
+      const skills = document.getElementById("resSkills").value.trim();
+
+      const resultBox = document.getElementById("resumeResult");
+      const downloadBtn = document.getElementById("resumeDownloadBtn");
+
+      if (!name) {
+        resultBox.style.display = "block";
+        resultBox.innerHTML = "⚠️ Please enter at least your full name.";
+        downloadBtn.style.display = "none";
+        return;
+      }
+
+      const lines = [];
+
+      lines.push(name.toUpperCase());
+      if (role) lines.push(role);
+      lines.push("");
+      lines.push("CONTACT");
+      if (email) lines.push("Email: " + email);
+      if (phone) lines.push("Phone: " + phone);
+      lines.push("");
+
+      if (summary) {
+        lines.push("SUMMARY");
+        lines.push(summary);
+        lines.push("");
+      }
+
+      if (experience) {
+        lines.push("EXPERIENCE");
+        lines.push(experience);
+        lines.push("");
+      }
+
+      if (education) {
+        lines.push("EDUCATION");
+        lines.push(education);
+        lines.push("");
+      }
+
+      if (skills) {
+        lines.push("SKILLS");
+        lines.push(skills);
+        lines.push("");
+      }
+
+      const resumeText = lines.join("\n");
+
+      resultBox.style.display = "block";
+      resultBox.textContent = resumeText;
+
+      // Download button setup
+      const blob = new Blob([resumeText], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+
+      downloadBtn.style.display = "inline-flex";
+      downloadBtn.href = url;
+      downloadBtn.download = (name || "resume").replace(/\s+/g, "_") + "_resume.txt";
     }
   </script>
 </body>
