@@ -363,11 +363,13 @@
       margin-top: 8px;
     }
 
-    #qrcode {
+    #qrImage {
       padding: 8px;
       border-radius: 16px;
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 1));
       border: 1px solid rgba(55, 65, 81, 0.9);
+      max-width: 160px;
+      max-height: 160px;
     }
 
     .emoji-output {
@@ -555,25 +557,6 @@
             </div>
           </div>
 
-          <!-- Text to Emoji Fun Converter -->
-          <div class="tool-card">
-            <div class="tool-header">
-              <div class="tool-title">Text ➜ Emoji Fun Converter</div>
-              <div class="tool-badge">FUN • SOCIAL</div>
-            </div>
-            <div class="tool-desc">
-              Make your messages more fun. We’ll spice up your text with smart emojis.
-            </div>
-            <div class="tool-body">
-              <label for="emojiInput">Your Text</label>
-              <textarea id="emojiInput" placeholder="Type something like: I'm happy and hungry today!"></textarea>
-              <button class="btn" onclick="convertToEmoji()">
-                <span>Emoji-fy Text</span> <span>✨</span>
-              </button>
-              <div id="emojiOutput" class="result-box emoji-output" style="display:none;"></div>
-            </div>
-          </div>
-
           <!-- QR Code Generator -->
           <div class="tool-card">
             <div class="tool-header">
@@ -590,11 +573,30 @@
                 <span>Generate QR</span> <span>📱</span>
               </button>
               <div class="qr-box">
-                <div id="qrcode"></div>
-                <div class="sidebar-text" style="text-align:center;">
+                <img id="qrImage" alt="QR code" style="display:none;" />
+                <div id="qrMessage" class="sidebar-text" style="text-align:center;">
                   Tip: Long press / right-click the QR → Save image.
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Text to Emoji Fun Converter -->
+          <div class="tool-card">
+            <div class="tool-header">
+              <div class="tool-title">Text ➜ Emoji Fun Converter</div>
+              <div class="tool-badge">FUN • SOCIAL</div>
+            </div>
+            <div class="tool-desc">
+              Make your messages more fun. We’ll spice up your text with smart emojis.
+            </div>
+            <div class="tool-body">
+              <label for="emojiInput">Your Text</label>
+              <textarea id="emojiInput" placeholder="Type something like: I'm happy and hungry today!"></textarea>
+              <button class="btn" onclick="convertToEmoji()">
+                <span>Emoji-fy Text</span> <span>✨</span>
+              </button>
+              <div id="emojiOutput" class="result-box emoji-output" style="display:none;"></div>
             </div>
           </div>
         </section>
@@ -770,9 +772,6 @@
     </footer>
   </div>
 
-  <!-- QR Code library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-MnIXvGjvE6BbZiI7IuP89xDSHLVbkP4Jrped1IovnHgwlHGawEq+y3OCAXoTr4a9L5xRcmRl6VwBxi0P5ltx0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
   <script>
     // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -922,26 +921,22 @@
         "Note: This is an approximate calculation. Actual EMI may differ slightly depending on bank rules.";
     }
 
-    // QR Code Generator
-    let qrInstance = null;
-
+    // QR Code Generator (using image API)
     function generateQR() {
       const text = document.getElementById("qrText").value.trim();
-      const qrContainer = document.getElementById("qrcode");
+      const img = document.getElementById("qrImage");
+      const msg = document.getElementById("qrMessage");
 
       if (!text) {
-        qrContainer.innerHTML = "<span style='font-size:12px; color:#9ca3af;'>⚠️ Enter some text or a link above.</span>";
+        img.style.display = "none";
+        msg.textContent = "⚠️ Enter some text or a link above.";
         return;
       }
 
-      qrContainer.innerHTML = "";
-
-      qrInstance = new QRCode(qrContainer, {
-        text: text,
-        width: 140,
-        height: 140,
-        correctLevel: QRCode.CorrectLevel.H
-      });
+      const url = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" + encodeURIComponent(text);
+      img.src = url;
+      img.style.display = "block";
+      msg.textContent = "Tip: Long press / right-click the QR → Save image.";
     }
 
     // Text to Emoji Fun Converter
@@ -956,6 +951,7 @@
       }
 
       const replacements = [
+        { key: /hi|hello/gi, emoji: "👋" },
         { key: /happy|glad|joy|smile/gi, emoji: "😊" },
         { key: /sad|upset|down/gi, emoji: "😔" },
         { key: /angry|mad|rage/gi, emoji: "😠" },
@@ -972,6 +968,11 @@
       replacements.forEach(r => {
         output = output.replace(r.key, match => match + " " + r.emoji);
       });
+
+      // If nothing changed, still add a smiley at end so users see something
+      if (output === input) {
+        output = input + " 🙂";
+      }
 
       outputBox.style.display = "block";
       outputBox.innerHTML = "<span class='result-highlight'>Converted Text:</span>\n\n" + output;
